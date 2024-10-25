@@ -1,5 +1,5 @@
 const apiKey = "b2a5adcct04b33178913oc335f405433";
-const apiUrl = "https://api.shecodes.io/weather/v1/current?query=";
+const apiUrl = "https://api.shecodes.io/weather/v1/current?";
 
 const locationInput = document.getElementById("locationInput");
 const searchButton = document.getElementById("searchButton");
