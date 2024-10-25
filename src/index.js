@@ -1,30 +1,31 @@
-const apiKey = "b2a5adcct04b33178913oc335f405433";
-const apiUrl = "https://api.shecodes.io/weather/v1/current?";
+const url = "https://api.openweathermap.org/data/2.5/weather";
+const apiKey = "f00c38e0279b7bc85480c3fe775d518c";
 
-const locationInput = document.getElementById("locationInput");
-const searchButton = document.getElementById("searchButton");
-const locationElement = document.getElementById("location");
-const temperatureElement = document.getElementById("temperature");
-const descriptionElement = document.getElementById("description");
-
-searchButton.addEventListener("click", () => {
-  const location = locationInput.value;
-  if (location) {
-    fetchWeather(location);
-  }
+$(document).ready(function () {
+  weatherFn("Pune");
 });
 
-function fetchWeather(location) {
-  const url = `${apiUrl}?q=${location}&appid=${apiKey}&units=metric`;
+async function weatherFn(cName) {
+  const temp = `${url}?q=${cName}&appid=${apiKey}&units=metric`;
+  try {
+    const res = await fetch(temp);
+    const data = await res.json();
+    if (res.ok) {
+      weatherShowFn(data);
+    } else {
+      alert("City not found. Please try again.");
+    }
+  } catch (error) {
+    console.error("Error fetching weather data:", error);
+  }
+}
 
-  fetch(url)
-    .then((response) => response.json())
-    .then((data) => {
-      locationElement.textContent = data.name;
-      temperatureElement.textContent = `${Math.round(data.main.temp)}°C`;
-      descriptionElement.textContent = data.weather[0].description;
-    })
-    .catch((error) => {
-      console.error("Error fetching weather data:", error);
-    });
+function weatherShowFn(data) {
+  $("#city-name").text(data.name);
+  $("#date").text(moment().format("MMMM Do YYYY, h:mm:ss a"));
+  $("#temperature").html(`${data.main.temp}°C`);
+  $("#description").text(data.weather[0].description);
+  $("#wind-speed").html(`Wind Speed: ${data.wind.speed} m/s`);
+  $("#weather-icon").attr("src", `...`);
+  $("#weather-info").fadeIn();
 }
