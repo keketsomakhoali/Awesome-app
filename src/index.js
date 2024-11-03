@@ -1,31 +1,64 @@
-const url = "https://api.openweathermap.org/data/2.5/weather";
-const apiKey = "f00c38e0279b7bc85480c3fe775d518c";
+function displayTemperature(response) {
+  let temperatureElement = document.querySelector("#current-temperature");
+  let temperature = Math.round(response.data.temperature.current);
+  let cityElement = document.querySelector("#current-city");
+  let descriptionElement = document.querySelector("#description");
+  let humidityElement = document.querySelector("#humidity");
+  let windspeedElement = document.querySelector("#wind-speed");
+  let timeElement = document.querySelector("#time");
+  let date = new Date(response.data.time * 1000);
+  let iconElement = document.querySelector("#icon");
 
-$(document).ready(function () {
-  weatherFn("Pune");
-});
+  cityElement.innerHTML = response.data.city;
+  temperatureElement.innerHTML = temperature;
+  descriptionElement.innerHTML = response.data.condition.description;
+  humidityElement.innerHTML = `${response.data.temperature.humidity}%`;
+  windspeedElement.innerHTML = `${response.data.wind.speed}km/h`;
+  timeElement.innerHTML = formatDate(date);
+}
+function search(event) {
+  event.preventDefault();
+  let searchInputElement = document.querySelector("#search-input");
+  let city = searchInputElement.value;
 
-async function weatherFn(cName) {
-  const temp = `${url}?q=${cName}&appid=${apiKey}&units=metric`;
-  try {
-    const res = await fetch(temp);
-    const data = await res.json();
-    if (res.ok) {
-      weatherShowFn(data);
-    } else {
-      alert("City not found. Please try again.");
-    }
-  } catch (error) {
-    console.error("Error fetching weather data:", error);
+  icon.innerHTML = `<img src="${response.data.condition.icon_url}" class= "weather-app-icon"/>`;
+  let apiKey = "b2a5adcct04b33178913oc335f405433";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+
+  axios.get(apiUrl).then(displayTemperature);
+}
+
+function formatDate(date) {
+  let minutes = date.getMinutes();
+  let hours = date.getHours();
+  let day = date.getDay();
+
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
   }
+
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  let formattedDay = days[day];
+  return `${formattedDay} ${hours}:${minutes}`;
 }
 
-function weatherShowFn(data) {
-  $("#city-name").text(data.name);
-  $("#date").text(moment().format("MMMM Do YYYY, h:mm:ss a"));
-  $("#temperature").html(`${data.main.temp}°C`);
-  $("#description").text(data.weather[0].description);
-  $("#wind-speed").html(`Wind Speed: ${data.wind.speed} m/s`);
-  $("#weather-icon").attr("src", `...`);
-  $("#weather-info").fadeIn();
-}
+let searchForm = document.querySelector("#search-form");
+searchForm.addEventListener("submit", search);
+
+let currentDateELement = document.querySelector("#current-date");
+let currentDate = new Date();
+
+currentDateELement.innerHTML = formatDate(currentDate);
