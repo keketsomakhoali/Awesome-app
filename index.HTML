@@ -6,32 +6,32 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
       rel="stylesheet"
     />
-    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <link rel="stylesheet" href="src/style.css" />
-    <title>My weather application</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <title>Final Weather app</title>
   </head>
   <body>
     <div class="weather-app">
-      <h1 class="current-city" id="current-city">Paris</h1>
       <header>
-        <form id="search-form">
+        <form class="search-form" id="search-form">
+          <h1 class="weather-app-city" id="city"></h1>
           <input
             type="search"
             placeholder="Enter a city.."
             required
-            class="search-input"
-            id="search-input"
+            id="search-form-input"
+            class="search-form-input"
           />
-          <input type="submit" value="Search" class="search-button" />
+          <input type="submit" value="Search" class="search-form-button" />
         </form>
       </header>
       <main>
-        <div class="current-weather">
+        <div class="weather-app-data">
           <div>
-            <p class="current-details">
+            <p class="weather-app-details">
               <span id="time"></span>,
               <span id="description"></span>
               <br />
@@ -39,41 +39,32 @@
               <strong id="wind-speed"></strong>
             </p>
           </div>
-          <div class="current-temperature">
+          <div class="weather-app-temperature-container">
             <div id="icon"></div>
-            <span class="current-temperature-icon"></span
-            ><span
-              class="current-temperature-value"
-              id="current-temperature"
-            ></span
-            ><span class="current-temperature-unit">°C</span>
+            <div class="weather-app-temperature" id="temperature"></div>
+            <div class="weather-app-unit">°C</div>
           </div>
         </div>
+        <div class="weather-forecast" id="forecast"></div>
       </main>
+
       <footer>
-        <p>
-          This project was coded by
-          <a
-            href="https://www.shecodesfoundation.org/candidates/keketso-bakaqane-south-african-fca7dad3-daec-49c7-a638-dd5176dd20e7"
-            target="_blank"
-            >Keketso</a
-          >
-          and is
-          <a
-            href="https://github.com/keketsomakhoali/Awesome-app"
-            target="_blank"
-          >
-            on GitHub</a
-          >
-          and
-          <a
-            href="https://app.netlify.com/teams/keketsomakhoali/sites"
-            target="_blank"
-            >hosted on Netlify</a
-          >
-        </p>
+        This project was coded by
+        <a
+          href="https://www.shecodes.io/graduates/141128-keketso-bakaqane"
+          target="_blank"
+        >
+          Keketso Makhoali</a
+        >, is
+        <a href="https://github.com/" target="_blank"> on GitHub</a>
+        and
+        <a
+          href="https://app.netlify.com/teams/keketsomakhoali/sites"
+          target="_blank"
+          >hosted on Netlify</a
+        >
       </footer>
     </div>
+    <script src="src/index.js"></script>
   </body>
-  <script src="src/index.js"></script>
 </html>
